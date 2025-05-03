@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pengumuman Kelulusan - SMAN 3 Gunung Sahilan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f1f1f1;
+      text-align: center;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 30px;
+      background: #fff;
+      margin-top: 50px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    button {
+      background-color: #2e86de;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    button:hover {
+      background-color: #1e6bb8;
+    }
+    #loginSection, #resultSection {
+      display: none;
+    }
+    .logo {
+      width: 120px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container" id="welcomeSection">
+    <img src="assets/logo.png" alt="Logo SMAN 3 Gunung Sahilan" class="logo">
+    <h2>Pengumuman Kelulusan</h2>
+    <h3>SMAN 3 Gunung Sahilan</h3>
+    <p>
+      Assalamu’alaikum Warahmatullahi Wabarakatuh,<br><br>
+      Dengan penuh rasa bangga, kami ucapkan <strong>Selamat</strong> kepada seluruh siswa-siswi SMAN 3 Gunung Sahilan
+      yang telah menyelesaikan pendidikan di jenjang SMA.<br><br>
+      Semoga ilmu yang kalian peroleh menjadi bekal untuk melanjutkan ke jenjang berikutnya dan meraih cita-cita yang diimpikan.<br><br>
+      Hormat kami,<br>
+      <strong>Drs. Darwin, M.Pd</strong><br>
+      <em>NIP. 196901191994121001</em><br>
+      Kepala Sekolah SMAN 3 Gunung Sahilan
+    </p>
+    <button onclick="showLogin()">LOGIN UNTUK MELIHAT HASIL KELULUSAN</button>
+  </div>
+
+  <div class="container" id="loginSection">
+    <h3>Masukkan Nomor Ujian</h3>
+    <input type="text" id="noUjian" placeholder="Contoh: 001/ASAJ/III/2025">
+    <button onclick="cekKelulusan()">CEK KELULUSAN</button>
+    <p id="error" style="color: red;"></p>
+  </div>
+
+  <div class="container" id="resultSection">
+    <h3>Hasil Kelulusan</h3>
+    <p id="nama"></p>
+    <p id="status"></p>
+    <p id="instruksi"></p>
+    <button onclick="kembali()">KEMBALI</button>
+  </div>
+
+  <script>
+    const dataKelulusan = {
+      "001": { nama: "Ahmad Rayhan Alfiano Saputra", status: "LULUS" },
+      "002": { nama: "Aldi Saputra", status: "LULUS" },
+      "003": { nama: "Arat Sawira", status: "LULUS" },
+      "004": { nama: "Chelcya Anggraini Putri", status: "LULUS" },
+      "005": { nama: "Dea Ananda Mesy", status: "LULUS" },
+      "006": { nama: "Defi Lina", status: "LULUS" },
+      "007": { nama: "Faza Mahdian", status: "LULUS" },
+      "008": { nama: "Gali Rahadiansyah", status: "LULUS" },
+      "009": { nama: "Halimah Tusakdiyah", status: "LULUS" },
+      "010": { nama: "M. Alzi Fahri", status: "LULUS" },
+      "011": { nama: "M. Bayu Dwi Putra", status: "LULUS" },
+      "012": { nama: "M. Muty Firmansyah", status: "LULUS" },
+      "013": { nama: "Maruli Tua", status: "LULUS" },
+      "014": { nama: "Muhammad Al Nasron", status: "LULUS" },
+      "015": { nama: "Nabila Zaharani", status: "LULUS" },
+      "016": { nama: "Putri Nurmah Diah NH", status: "LULUS" },
+      "017": { nama: "Rabiatul Adawiyah", status: "LULUS" },
+      "018": { nama: "Rahmat Mukti Ramadani", status: "LULUS" },
+      "019": { nama: "Satrio Rahmadani", status: "LULUS" },
+      "020": { nama: "Tari Sapitri", status: "LULUS" }
+    };
+
+    function showLogin() {
+      document.getElementById('welcomeSection').style.display = 'none';
+      document.getElementById('loginSection').style.display = 'block';
+    }
+
+    function cekKelulusan() {
+      const input = document.getElementById('noUjian').value.trim();
+      const nomor = input.split("/")[0]; // Ambil 3 digit awal
+      const result = dataKelulusan[nomor];
+
+      if (result) {
+        document.getElementById('loginSection').style.display = 'none';
+        document.getElementById('resultSection').style.display = 'block';
+        document.getElementById('nama').textContent = `Nama: ${result.nama}`;
+        document.getElementById('status').textContent = `Status: ${result.status}`;
+
+        if (result.status === "LULUS") {
+          document.getElementById('instruksi').textContent =
+            "Bagi yang dinyatakan LULUS, silakan mengambil Surat Keterangan Lulus di Ruang Administrasi dengan berpakaian rapi dan sopan.";
+        } else {
+          document.getElementById('instruksi').textContent = "";
+        }
+      } else {
+        document.getElementById('error').textContent = "Nomor Ujian tidak ditemukan. Harap periksa kembali.";
+      }
+    }
+
+    function kembali() {
+      document.getElementById('resultSection').style.display = 'none';
+      document.getElementById('loginSection').style.display = 'block';
+      document.getElementById('error').textContent = "";
+      document.getElementById('noUjian').value = "";
+    }
+  </script>
+</body>
+</html>
